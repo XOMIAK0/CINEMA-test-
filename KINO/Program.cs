@@ -15,7 +15,7 @@ namespace cinema_5D_Best_Films
             bool isOpen = true; //когда все заполняться изменим на false и цикл не запуститься (наверное)
             Console.CursorVisible = true;
 
-            Cinema[] seats = { new Cinema(1, 41), new Cinema(2, 57), new Cinema(3, 30) };
+            Cinema[] seats = { new Cinema(1, 41), new Cinema(2, 57), new Cinema(3, 10) };
 
             int desiredPlaces = 0;
 
@@ -100,7 +100,7 @@ namespace cinema_5D_Best_Films
                 return false;
             }
         }
-        public void CinemaHall(int reservedSeats) //и сюда тоже отправляем кол-во мест и номер зала
+        public void CinemaHall(int reservedSeats)
         {
 
             //Console.SetCursorPosition(0, 10);
@@ -108,7 +108,7 @@ namespace cinema_5D_Best_Films
             width = MaxPlaces % 10;  //тут добавляем недостоющее 
 
             //int[,] chairsInCinema = new int[height + 1, 10];
-            int[,] chairsInCinema = new int[100, 10];
+            int[,] chairsInCinema = new int[100, 100];
 
             if (reservedSeats == 0)
             {
@@ -130,30 +130,25 @@ namespace cinema_5D_Best_Films
                         Console.Write(chairsInCinema[j, height + 1]);
                     }
                 }
-
-
                 Console.WriteLine();
-
             }
+
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                //Console.SetCursorPosition(0, 16);
                 height = reservedSeats / 10; //определяем высоту зала, ширина всегда = 10
                 width = reservedSeats % 10;  //тут добавляем недостоющее 
 
-                //int[,] chairsInCinema = new int[height + 1, 10];
-
-                for (int i = 0; i < height; i++) //пишем красным цветом
+                for (int i = 0; i < height; i++)  //пишем забронированные места красным
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        chairsInCinema[i, j] = 1;
-                        Console.Write(chairsInCinema[i, j]);
+                        chairsInCinema[i,j] = 1;
+                        Console.Write(chairsInCinema[i,j]);
                     }
                     Console.WriteLine();
                 }
-                if (width != 0)
+                if (width > 0)
                 {
                     for (int j = 0; j < width; j++)
                     {
@@ -163,37 +158,27 @@ namespace cinema_5D_Best_Films
                     Console.WriteLine();
                 }
 
-
                 Console.ForegroundColor = ConsoleColor.White;
-                for (int i = height; i < MaxPlaces / 10; i++)  //добавляем белым цветом
+                for (int i = 0; i < (MaxPlaces - reservedSeats)/10+1; i++) //добавляем оставшиеся белым
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < (MaxPlaces - reservedSeats); j++)
                     {
                         chairsInCinema[i, j] = 0;
-                        Console.Write(chairsInCinema[i, j]);
-                    }
-                    Console.WriteLine();
-                }
-                if (width != 0)
-                {
-                    for (int j = width; j < MaxPlaces % 10; j++)
-                    {
-                        chairsInCinema[j, height + 1] = 0;
-                        Console.Write(chairsInCinema[j, height + 1]);
+                        Console.Write(chairsInCinema[i , j]);
                     }
                     Console.WriteLine();
                 }
             }
-            //return 1;
-            /*
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("▀ ");
-            */
-            //Console.ForegroundColor = ConsoleColor.Black;
+            
+            }
+            
+            
 
-            //Console.ReadKey();
+
+
+
         }
 
 
     }
-}
+
